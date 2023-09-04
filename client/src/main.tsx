@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import Deck from "./Deck.tsx";
-import "./index.css";
+import Session from "./components/Session.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Header } from "./components/Header.tsx";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
@@ -11,13 +12,14 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/decks/:deckId",
-    element: <Deck />,
+    path: "/sessions/:sessionId",
+    element: <Session />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <Header />
     <RouterProvider router={router} />
   </React.StrictMode>
 );

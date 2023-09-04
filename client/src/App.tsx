@@ -1,54 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { deleteDeck } from "./api/deleteDeck";
-import { getDecks, TDeck } from "./api/getDecks";
-import { createDeck } from "./api/createDeck";
+import { deleteSession } from "./api/deleteSession";
+import { getSessions, TSession } from "./api/getSessions";
+import { createSession } from "./api/createSession";
 import "./App.css";
 
 function App() {
-  const [decks, setDecks] = useState<TDeck[]>([]);
+  const [sessions, setSessions] = useState<TSession[]>([]);
   const [title, setTitle] = useState("");
 
-  async function handleCreateDeck(e: React.FormEvent) {
+  async function handleCreateSession(e: React.FormEvent) {
     e.preventDefault();
-    const deck = await createDeck(title);
-    setDecks([...decks, deck]);
+    const session = await createSession(title);
+    setSessions([...sessions, session]);
     setTitle("");
   }
 
-  async function handleDeleteDeck(deckId: string) {
-    await deleteDeck(deckId);
-    setDecks(decks.filter((deck) => deck._id !== deckId));
+  async function handleDeleteSession(sessionId: string) {
+    await deleteSession(sessionId);
+    setSessions(sessions.filter((session) => session._id !== sessionId));
   }
 
   useEffect(() => {
-    async function fetchDecks() {
-      const newDecks = await getDecks();
-      setDecks(newDecks);
+    async function fetchSessions() {
+      const newSessions = await getSessions();
+      setSessions(newSessions);
     }
-    fetchDecks();
+    fetchSessions();
   }, []);
 
   return (
     <div className="app">
-      <ul className="decks">
-        {decks.map((deck) => (
-          <li key={deck._id}>
-            <button onClick={() => handleDeleteDeck(deck._id)}>X</button>
-            <Link to={`decks/${deck._id}`}>{deck.title}</Link>
+      <ul className="sessions">
+        {sessions.map((session) => (
+          <li key={session._id}>
+            <button onClick={() => handleDeleteSession(session._id)}>X</button>
+            <Link to={`sessions/${session._id}`}>{session.title}</Link>
           </li>
         ))}
       </ul>
-      <form onSubmit={handleCreateDeck}>
-        <label htmlFor="deck-title">Deck Title</label>
+      <form onSubmit={handleCreateSession}>
+        <label htmlFor="session-title">Session Title</label>
         <input
-          id="deck-title"
+          id="session-title"
           value={title}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setTitle(e.target.value);
           }}
         />
-        <button>Create Deck</button>
+        <button>Create Session</button>
       </form>
     </div>
   );
