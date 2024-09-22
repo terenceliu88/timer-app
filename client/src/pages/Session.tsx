@@ -8,7 +8,7 @@ import Timer from "../components/Timer";
 import "../App.css";
 
 export default function Session() {
-  const [session, setSession] = useState<TSession | undefined>();
+  const [_, setSession] = useState<TSession | undefined>();
   const [times, setTimes] = useState<string[]>([]);
   const [text, setText] = useState("");
   const { sessionId } = useParams();

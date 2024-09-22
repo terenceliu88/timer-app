@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import Session from "./components/Session.tsx";
+import Session from "./pages/Session.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Header } from "./components/Header.tsx";
 import "./index.css";
